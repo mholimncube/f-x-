@@ -1,18 +1,19 @@
-﻿using AwayFromKeyboard.Models;
-using AwayFromKeyboard.MongoDBContext;
-using MongoDB.Bson;
-using MongoDB.Driver;
-using System;
+﻿using System;
 using System.Collections.Generic;
-using System.Configuration;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
+using MongoDB.Bson;
+using MongoDB.Driver;
+using AwayFromKeyboard.Models;
+using AwayFromKeyboard.MongoDBContext;
 
 namespace AwayFromKeyboard.Controllers
 {
     public class EmployeeController : Controller
     {
+       
+
         // GET: Employee
         DBContext _dbContext;
 
@@ -20,13 +21,14 @@ namespace AwayFromKeyboard.Controllers
         {
             _dbContext = new DBContext();
         }
+
         [HttpPost]
         public ActionResult Index(Employee employee)
         {
 
             if (ModelState.IsValid)
             {
-               if(employee.Name == null)
+                if (employee.Name == null)
                 {
                     return View();
                 }
@@ -40,10 +42,9 @@ namespace AwayFromKeyboard.Controllers
         }
         public ActionResult employeeList()
         {
-          
+
             var collection = _dbContext.Employees.Find(new BsonDocument()).ToList();
             return View(collection);
         }
-
     }
 }
